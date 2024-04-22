@@ -1,0 +1,4 @@
+﻿  Source.c
+C:\Users\cacas\OneDrive\문서\GitHub\RUNgame\런게임 찐최종본\런게임 찐최종본\Source.c(44,2): warning C4013: 'GoToXY'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
+Source.obj : error LNK2019: GoToXYDrawGameStart 함수에서 참조되는 확인할 수 없는 외부 기호
+C:\Users\cacas\OneDrive\문서\GitHub\RUNgame\런게임 찐최종본\x64\Debug\런게임 찐최종본.exe : fatal error LNK1120: 1개의 확인할 수 없는 외부 참조입니다.
