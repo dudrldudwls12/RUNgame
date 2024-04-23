@@ -164,7 +164,7 @@ void DrawGameOver(const int score)
 BOOL isCollision(const int treeX, const int itemX, const int dinoY, const life)
 {
 	GotoXY(0, 0);
-	printf("treeX : %d, itemX : %d, dinoY : %d, life : %d", treeX, itmeX, dinoY, life);
+	printf("treeX : %d, itemX : %d, dinoY : %d, life : %d", treeX, itemX, dinoY, life);
 	if (treeX <= 7 && treeX >= 6 && dinoY > 8)
 	{
 		return TRUE;
@@ -175,7 +175,7 @@ BOOL isCollision(const int treeX, const int itemX, const int dinoY, const life)
 BOOL isCollision(const int treeX, const int itemX, const int dinoY, const life)
 {
 	GotoXY(0, 0);
-	printf("treeX : %d, itemX : %d, dinoY : %d, life : %d", treeX, itmeX, dinoY, life);
+	printf("treeX : %d, itemX : %d, dinoY : %d, life : %d", treeX, itemX, dinoY, life);
 	if (itemX <= 8 && itemX >= 6 && dinoY < 4)
 	{
 		return TRUE;
@@ -185,87 +185,102 @@ BOOL isCollision(const int treeX, const int itemX, const int dinoY, const life)
 
 int main()
 {
-	SetConsoleView();
+	SetConsoleView(); 
 	DrawGameStart();
 	while (TRUE)
 	{
 		BOOL isJumping = FALSE;
-		BOOL isBOTTOM = TRUE;
+		BOOL isBottom = TRUE;
 		const int gravity = 3;
 
 		int dinoY = DINO_BOTTOM_Y;
 		int treeX = TREE_BOTTOM_X;
 		int itemX = ITEM_BOTTOM_X;
 
-		int score = 0;
-
+		int score = 0;  
 		int life = 5;
 		clock_t start, curr;
 		start = clock();
 
 		while (TRUE)
 		{
-			if (isCollision(treeX, itemX, dinoY, life))
+			if (isCollision(treeX, itemX, dinoY, life)) 
 			{
+			
 				life--;
-				tree_effect(treeX);
 
+				tree_effect(treeX);
+				if (life == 0) break;
 			}
-			if (life != 0)
-			{
-				break;
-			}
-			if (isCollision2(treeX, itemX, dinoY, life))
-			{
+
+			if (isCollision2(treeX, itemX, dinoY, life)) {
 				life++;
 				item_effect(itemX);
 			}
+
+			if (GetKeyDown() == 'z' && isBottom)
+			{
+				isJumping = TRUE;
+				isBottom = FALSE;
+			}
+
 			if (isJumping)
 			{
 				dinoY -= gravity;
+
 			}
 			else
 			{
 				dinoY += gravity;
 			}
+
 			if (dinoY >= DINO_BOTTOM_Y)
 			{
 				dinoY = DINO_BOTTOM_Y;
-				isBOTTOM = TRUE;
+				isBottom = TRUE;
 			}
 
 			treeX -= 2;
-			treeX -= 1;
-		}
-		if (treeX <= 0)
-		{
-			treeX = TREE_BOTTOM_X;
-		}
-		if (itemX <= 0)
-		{
-			itemX = ITEM_BOTTOM_X;
-		}
-		if (dinoY <= 4)
-		{
-			isJumping = FALSE;
-		}
-		DrawDino(dinoY);
-		DrawTree(treeX);
-		DrawItem(itemX);
+			itemX -= 1;
 
-		curr = clock();
-		if (((curr - start) / CLOCKS_PER_SEC) >= 1)
-		{
-			score++;
-			start = clock();
+			if (score >= 5) 
+			{
+				treeX -= 1;
+			}
+
+			if (treeX <= 0)
+			{
+				treeX = TREE_BOTTOM_X;
+			}
+
+			if (itemX <= 0)
+			{
+				itemX = ITEM_BOTTOM_X;
+			}
+
+			if (dinoY <= 4)
+			{
+				isJumping = FALSE;
+			}
+
+			DrawDino(dinoY);
+			DrawTree(treeX);
+			DrawItem(itemX);	
+
+			curr = clock();
+			if (((curr - start) / CLOCKS_PER_SEC) >= 1)
+			{
+				score++;
+				start = clock();
+			}
+			Sleep(60);
+			system("cls");
+
+			GotoXY(22, 0);
+			printf("        점수표 : %d ", score);
 		}
 
-		system("cls");
-	
-		GotoXY(22, 0);
-		printf("          현재점수 : %d  ", score);
+		DrawGameOver(score);
 	}
-	DrawGameOver(score);
-
 	return 0;
 }
