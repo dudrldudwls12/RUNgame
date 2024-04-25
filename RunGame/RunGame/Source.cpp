@@ -13,7 +13,7 @@
 void SetConsoleView()
 {
 	system("mode con:cols=100 lines=25");
-	system("Dinosaurs Run");
+	system("Amumu, the Sad Mummy Run");
 }
 
 void GotoXY(int x, int y)
@@ -38,25 +38,26 @@ void DrawGameStart()
 	system("cls");
 	int x = 16;
 	int y = 13;
-	printf("===========================");
+	GotoXY(x, y);
+	printf("============================");
 	GotoXY(x, y +1);
-	printf("===========================");
+	printf("============================");
 	GotoXY(x, y +2);
-	printf("=====살기위해뛰는 게임=====");
+	printf("====아무무 를 살려주세요====");
 	GotoXY(x, y +3);
-	printf("===========================");
+	printf("============================");
 	GotoXY(x, y +4);
-	printf("===========================");
+	printf("============================");
 	GotoXY(x, y +5);
 	printf("Z : 점프키");
 	GotoXY(x, y +7);
-	
+	printf("남은 목숨 5개");
 	GotoXY(x, y +8);
-	printf("나무에 부딫히면 목숨이 차감 --.");
+	printf("나무에 부딫히면 목숨이 줄어요ㅠㅠ ");
 	GotoXY(x, y +9);
-	printf("당근을 먹으면 목숨이 늘어남 ++.");
+	printf("미니언을 처치하면 목숨이 늘어나요! ");
 	GotoXY(x, y +11);
-	printf("게임시작 하려면 아무키나 누르시오.");
+	printf("게임을 시작해서 아무무를 살려주세요 용사님!");
 	printf("\n\n\n\n\n\n\n\n");
 	_getch();
 }
@@ -64,38 +65,37 @@ void DrawGameStart()
 void DrawDino(int dinoY)
 {
 		GotoXY(0, dinoY);
-		static BOOL legFlag = TRUE;
-		printf("        &&      \n");
-		printf("       &&&&     \n");
-		printf("       &&&&&    \n");
-		printf("       &&&&&    \n");
-		printf("       &&& &&&  \n");
-		printf("       &&&&&&   \n");
+		static bool legFlag = true;
 		printf("      &&&&&     \n");
-		printf(" &&  &&&&&&&&   \n");
-		printf(" &&  &&&&&&&    \n");
-		printf("  && &&&&&&&    \n");
-		printf("    &&&&&&&&    \n");
+		printf("     &&&&&&&    \n");
+		printf("     && & &&    \n");
+		printf("     &&&&&&&    \n");
+		printf("      &&&&      \n");
+		printf("     &&&&&&     \n");
+		printf("     &&&&&&    \n");
+		printf("    && && &&    \n");
+		printf("   &&  &&  &&   \n");
+		printf("  &&   &&   &&  \n");
+		printf(" &    &&      &   \n");
 
 	if (legFlag)
 	{
-		printf(" &&  &&  \n");
-		printf("   &   &    \n");
-		legFlag = FALSE;
+		printf("  &&      &&   \n");
+		printf("  &&      &&   \n");
+		legFlag = false;
 	}
 	else
 	{
-		printf("     &&&  &     \n");
-		printf("          &&    ");
-
-		legFlag = TRUE;
+		printf("   &     &   \n");
+		printf("  &       &   \n");
+		legFlag = true;
 	}
 }
 
 void DrawTree(int treeX)
 {
 	GotoXY(treeX, TREE_BOTTOM_Y);
-	printf("$$$$");
+	printf("$$$$$$$");
 	GotoXY(treeX, TREE_BOTTOM_Y + 1);
 	printf("  $$  ");
 	GotoXY(treeX, TREE_BOTTOM_Y + 2);
@@ -106,19 +106,19 @@ void DrawTree(int treeX)
 	printf("  $$  ");
 }
 
-void DrawItem(int itemX)
-{
-	GotoXY(itemX, ITEM_BOTTOM_Y);
-	printf(" **** ");
-	GotoXY(itemX, ITEM_BOTTOM_Y + 1);
-	printf("   **   ");
-	GotoXY(itemX, ITEM_BOTTOM_Y + 2);
-	printf("   **  ");
-	GotoXY(itemX, ITEM_BOTTOM_Y + 3);
-	printf(" **** ");
-}
+ void DrawItem(int itemX)
+ {
+ 	GotoXY(itemX, ITEM_BOTTOM_Y);
+ 	printf(" **** ");
+ 	GotoXY(itemX, ITEM_BOTTOM_Y + 1);
+ 	printf("   **   ");
+ 	GotoXY(itemX, ITEM_BOTTOM_Y + 2);
+ 	printf("   **  ");
+ 	GotoXY(itemX, ITEM_BOTTOM_Y + 3);
+ 	printf(" **** ");
+ }
 
-void itme_effect(int itemX)
+void item_effect(int itemX)
 {
 	GotoXY(itemX, ITEM_BOTTOM_Y);
 	printf(" ^^    ^^");
@@ -144,6 +144,7 @@ void tree_effect(int treeX)
 	printf("@*@*@*@");
 	GotoXY(treeX, TREE_BOTTOM_Y + 4);
 	printf("@*@*@*@");
+	Sleep(100);
 }
 
 void DrawGameOver(const int score)
@@ -152,11 +153,13 @@ void DrawGameOver(const int score)
 	int x = 18;
 	int y = 8;
 	GotoXY(x, y);
-	printf("%%%%%%%%%%&&&&&&&&");
+	printf("                   ");
 	GotoXY(x, y + 1);
-	printf("게임 오버");
+	printf("       게임이       ");
 	GotoXY(x, y + 2);
-	printf("%%%%%%%%%%&&&&&&&&");
+	printf("    종료되었습니다    ");
+	GotoXY(x, y + 3);
+	printf("                   ");
 	GotoXY(x, y + 5);
 	printf("최종점수 : %d", score);
 
@@ -174,26 +177,25 @@ bool isCollision(const int treeX, const int itemX, const int dinoY, const int li
 	}
 	return false;
 }
-
-//bool isCollision(const int treeX, const int itemX, const int dinoY, const int life)
-//{
-//	GotoXY(0, 0);
-//	printf("treeX : %d, itemX : %d, dinoY : %d, life : %d", treeX, itemX, dinoY, life);
-//	if (itemX <= 8 && itemX >= 6 && dinoY < 4)
-//	{
-//		return true;
-//	}
-//	return false;
-//}
+bool isCollision2(const int treeX, const int itemX, const int dinoY, const int life)
+{
+	GotoXY(0, 0);
+	printf("treeX : %d, itemX : %d, dinoY : %d, life : %d", treeX, itemX, dinoY, life);
+	if (treeX <= 8 && treeX >= 6 && dinoY < 4)
+	{
+		return true;
+	}
+	return false;
+}
 
 int main()
 {
 	SetConsoleView(); 
 	DrawGameStart();
-	while (TRUE)
+	while (true)
 	{
-		BOOL isJumping = FALSE;
-		BOOL isBottom = TRUE;
+		bool isJumping = false;
+		bool isBottom = true;
 		const int gravity = 3;
 
 		int dinoY = DINO_BOTTOM_Y;
@@ -201,31 +203,32 @@ int main()
 		int itemX = ITEM_BOTTOM_X;
 
 		int score = 0;  
-		int life = 2;
+		int life = 5;
 		clock_t start, curr;
 		start = clock();
 
-		while (TRUE)
+		while (true)
 		{
 			if (isCollision(treeX, itemX, dinoY, life)) 
 			{
 			
 				life--;
-
 				tree_effect(treeX);
-				if (life != 0) break;
+				if (life <= 0)
+					break;
 			}
 
-			if (isCollision(treeX, itemX, dinoY, life)) 
+			if (isCollision2(treeX, itemX, dinoY, life)) 
 			{
 				life++;
-				//item_effect(itemX);
+				item_effect(itemX);
+				
 			}
 
 			if (GetKeyDown() == 'z' && isBottom)
 			{
-				isJumping = TRUE;
-				isBottom = FALSE;
+				isJumping = true;
+				isBottom = false;
 			}
 
 			if (isJumping)
@@ -241,7 +244,7 @@ int main()
 			if (dinoY >= DINO_BOTTOM_Y)
 			{
 				dinoY = DINO_BOTTOM_Y;
-				isBottom = TRUE;
+				isBottom = true;
 			}
 
 			treeX -= 2;
@@ -264,7 +267,7 @@ int main()
 
 			if (dinoY <= 4)
 			{
-				isJumping = FALSE;
+				isJumping = false;
 			}
 
 			DrawDino(dinoY);
@@ -277,7 +280,7 @@ int main()
 				score++;
 				start = clock();
 			}
-			Sleep(70);
+			Sleep(60);
 			system("cls");
 
 			GotoXY(22, 0);
