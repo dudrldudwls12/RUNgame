@@ -33,7 +33,7 @@ int GetKeyDown()
 	return 0;
 }
 
-void DrawGameStart()
+void DrawGameStart()  // 게임을 실행 했을때 나오는 상태창 입니다.
 {
 	system("cls");
 	int x = 16;
@@ -51,13 +51,13 @@ void DrawGameStart()
 	GotoXY(x, y +5);
 	printf("Z : 점프키");
 	GotoXY(x, y +7);
-	printf("남은 목숨 5개");
+	printf("※남은 기회는 5번이에요※");
 	GotoXY(x, y +8);
-	printf("나무에 부딫히면 목숨이 줄어요ㅠㅠ ");
+	printf("※나무에 부딫히면 목숨이 줄어요ㅠㅠ※ ");
 	GotoXY(x, y +9);
-	printf("미니언을 처치하면 목숨이 늘어나요! ");
+	printf("※미니언을 처치하면 목숨이 늘어나요!※ ");
 	GotoXY(x, y +11);
-	printf("게임을 시작해서 아무무를 살려주세요 용사님!");
+	printf("※게임을 시작해서 아무무를 살려주세요 소환사님!※");
 	printf("\n\n\n\n\n\n\n\n");
 	_getch();
 }
@@ -65,8 +65,8 @@ void DrawGameStart()
 void DrawDino(int dinoY)
 {
 		GotoXY(0, dinoY);
-		static bool legFlag = true;
-		printf("      &&&&&     \n");
+		static bool legFlag = true;		// 아무무의 상체를 그리는 함수이며,
+		printf("      &&&&&     \n");		// 고정된 상태입니다.
 		printf("     &&&&&&&    \n");
 		printf("     && & &&    \n");
 		printf("     &&&&&&&    \n");
@@ -80,19 +80,19 @@ void DrawDino(int dinoY)
 
 	if (legFlag)
 	{
-		printf("  &&      &&   \n");
-		printf("  &&      &&   \n");
+		printf("  &&      &&   \n");		// 아무무의 하체를 그리는 함수이며,
+		printf("  &&      &&   \n");		// 고정된 상태입니다.
 		legFlag = false;
 	}
 	else
 	{
-		printf("   &     &   \n");
-		printf("  &       &   \n");
+		printf("   &     &   \n");			// 아무무의 하체를 그리는 함수이며, 
+		printf("  &       &   \n");			// 움직이는 상태입니다.
 		legFlag = true;
 	}
 }
 
-void DrawTree(int treeX)
+void DrawTree(int treeX)					// 장애물 을 나타내는 함수입니다.
 {
 	GotoXY(treeX, TREE_BOTTOM_Y);
 	printf("$$$$$$$");
@@ -106,7 +106,7 @@ void DrawTree(int treeX)
 	printf("  $$  ");
 }
 
- void DrawItem(int itemX)
+ void DrawItem(int itemX)					// 미니언 을 나타내는 함수입니다.
  {
  	GotoXY(itemX, ITEM_BOTTOM_Y);
  	printf(" **** ");
@@ -118,7 +118,7 @@ void DrawTree(int treeX)
  	printf(" **** ");
  }
 
-void item_effect(int itemX)
+void item_effect(int itemX)					// 미니언 처치시 나타나는 효과입니다.
 {
 	GotoXY(itemX, ITEM_BOTTOM_Y);
 	printf(" ^^    ^^");
@@ -132,7 +132,7 @@ void item_effect(int itemX)
 	printf(" ^    ^   ^");
 }
 
-void tree_effect(int treeX)
+void tree_effect(int treeX)					// 장애물에 부딪혔을때 나타나는 효과입니다.
 {
 	GotoXY(treeX, TREE_BOTTOM_Y);
 	printf("@*@*@*@");
@@ -147,8 +147,8 @@ void tree_effect(int treeX)
 	Sleep(100);
 }
 
-void DrawGameOver(const int score)
-{
+void DrawGameOver(const int score)				// 모든 기회를 소진시,
+{																	// 게임이 종료되는 상태창 입니다.
 	system("cls");
 	int x = 18;
 	int y = 8;
@@ -173,9 +173,9 @@ bool isCollision(const int treeX, const int itemX, const int dinoY, const int li
 	printf("treeX : %d, itemX : %d, dinoY : %d, life : %d", treeX, itemX, dinoY, life);
 	if (treeX <= 7 && treeX >= 6 && dinoY > 8)
 	{
-		return true;
-	}
-	return false;
+		return true;			// 장애물에 부딪히면 기회가 1개씩 줄어듭니다. 				
+	}								// 아무무가 장애물에 걸리면 충돌로 처리됩니다.
+	return false;	
 }
 bool isCollision2(const int treeX, const int itemX, const int dinoY, const int life)
 {
@@ -183,14 +183,14 @@ bool isCollision2(const int treeX, const int itemX, const int dinoY, const int l
 	printf("treeX : %d, itemX : %d, dinoY : %d, life : %d", treeX, itemX, dinoY, life);
 	if (treeX <= 8 && treeX >= 6 && dinoY < 4)
 	{
-		return true;
+		return true;			// 미니언을 처치시 기회가 1개씩 추가되는 함수입니다.
 	}
 	return false;
 }
 
 int main()
 {
-	SetConsoleView(); 
+	SetConsoleView();		// 
 	DrawGameStart();
 	while (true)
 	{
