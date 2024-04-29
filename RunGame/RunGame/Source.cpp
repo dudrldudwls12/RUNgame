@@ -53,7 +53,7 @@ void DrawGameStart()  // 게임을 실행 했을때 나오는 상태창 입니�
 	GotoXY(x, y +7);
 	printf("※남은 기회는 5번이에요※");
 	GotoXY(x, y +8);
-	printf("※나무에 부딫히면 목숨이 줄어요ㅠㅠ※ ");
+	printf("※장애물에 부딪히면 목숨이 줄어요ㅠㅠ※ ");
 	GotoXY(x, y +9);
 	printf("※미니언을 처치하면 목숨이 늘어나요!※ ");
 	GotoXY(x, y +11);
@@ -190,7 +190,7 @@ bool isCollision2(const int treeX, const int itemX, const int dinoY, const int l
 
 int main()
 {
-	SetConsoleView();		// 
+	SetConsoleView();		// 게임 시작 화면 나오는 코드 입니다.
 	DrawGameStart();
 	while (true)
 	{
@@ -209,19 +209,19 @@ int main()
 
 		while (true)
 		{
-			if (isCollision(treeX, itemX, dinoY, life)) 
+			if (isCollision(treeX, itemX, dinoY, life))  // 장애물에 부딪히면 목숨이 1개씩 차감
 			{
 			
 				life--;
-				tree_effect(treeX);
+				tree_effect(treeX); // 장애물에 부딪히면 나타나는 이펙트 입니다.
 				if (life <= 0)
 					break;
 			}
 
-			if (isCollision2(treeX, itemX, dinoY, life)) 
+			if (isCollision2(treeX, itemX, dinoY, life)) // 미니언 처치시 목숨이 1개씩 증가
 			{
 				life++;
-				item_effect(itemX);
+				item_effect(itemX); // 미니언 처치시 나타나는 이펙트 입니다.
 				
 			}
 
