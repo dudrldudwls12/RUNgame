@@ -10,7 +10,7 @@
 #define ITEM_BOTTOM_Y 5
 #define ITEM_BOTTOM_X 45
 
-void SetConsoleView()
+void SetConsoleView() // 게임실행전 크기와 제목을 지정하는 함수입니다.
 {
 	system("mode con:cols=100 lines=25");
 	system("Amumu, the Sad Mummy Run");
@@ -190,7 +190,7 @@ bool isCollision2(const int treeX, const int itemX, const int dinoY, const int l
 
 int main()
 {
-	SetConsoleView();		   // 게임 시작 화면 나오는 코드 입니다.
+	SetConsoleView();		   // 게임시작전, 설명, 크기를 나타내는 코드입니다.
 	DrawGameStart();
 	while (true)
 	{
