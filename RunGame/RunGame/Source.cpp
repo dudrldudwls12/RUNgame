@@ -148,7 +148,7 @@ void tree_effect(int treeX)					// 장애물에 부딪혔을때 나타나는 효
 }
 
 void DrawGameOver(const int score)				// 모든 기회를 소진시,
-{																	// 게임이 종료되는 상태창 입니다.
+{											    // 게임이 종료되는 상태창 입니다.
 	system("cls");
 	int x = 18;
 	int y = 8;
@@ -174,7 +174,7 @@ bool isCollision(const int treeX, const int itemX, const int dinoY, const int li
 	if (treeX <= 7 && treeX >= 6 && dinoY > 8)
 	{
 		return true;			// 장애물에 부딪히면 기회가 1개씩 줄어듭니다. 				
-	}								// 아무무가 장애물에 걸리면 충돌로 처리됩니다.
+	}						    // 아무무가 장애물에 걸리면 충돌로 처리됩니다.
 	return false;	
 }
 bool isCollision2(const int treeX, const int itemX, const int dinoY, const int life)
@@ -190,7 +190,7 @@ bool isCollision2(const int treeX, const int itemX, const int dinoY, const int l
 
 int main()
 {
-	SetConsoleView();		// 게임 시작 화면 나오는 코드 입니다.
+	SetConsoleView();		   // 게임 시작 화면 나오는 코드 입니다.
 	DrawGameStart();
 	while (true)
 	{
@@ -218,7 +218,7 @@ int main()
 					break;
 			}
 
-			if (isCollision2(treeX, itemX, dinoY, life)) // 미니언 처치시 목숨이 1개씩 증가
+			if (isCollision2(treeX, itemX, dinoY, life)) // 미니언 처치시 목숨이 1개씩 증가합니다.
 			{
 				life++;
 				item_effect(itemX); // 미니언 처치시 나타나는 이펙트 입니다.
